@@ -6,30 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('cache', function (Blueprint $table) {
-            $table->string('key')->primary();
-            $table->mediumText('value');
-            $table->bigInteger('expiration')->index();
-        });
-
-        Schema::create('cache_locks', function (Blueprint $table) {
-            $table->string('key')->primary();
-            $table->string('owner');
-            $table->bigInteger('expiration')->index();
+        Schema::create('permission_user', function (Blueprint $table) {
+            $table->foreignId('user_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
+            $table->foreignId('permission_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
+            $table->timestamps();
+            $table->primary(['user_id', 'permission_id']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
+        Schema::dropIfExists('permission_user');
     }
 };
