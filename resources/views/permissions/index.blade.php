@@ -55,7 +55,7 @@
                     <tr>
                         <td class="px-4 py-3">{{ $permission->name }}</td>
                         <td class="px-4 py-3">{{ $permission->slug }}</td>
-                        <td class="px-4 py-3">{{ $permission->description ?: 'Sem descricao' }}</td>
+                        <td class="px-4 py-3">{{ $permission->description ?: 'Sem descrição' }}</td>
                         <td class="px-4 py-3">
                             <div class="flex items-center gap-3 text-sm">
                                 <a href="{{ route('permissions.edit', $permission) }}" class="text-blue-600 transition hover:text-blue-700">
@@ -68,7 +68,7 @@
                                     <button
                                         type="submit"
                                         class="text-red-600 transition hover:text-red-700"
-                                        onclick="return confirm('Deseja excluir esta permissao?')"
+                                        onclick="return confirm('Deseja excluir esta permissão?')"
                                     >
                                         Excluir
                                     </button>

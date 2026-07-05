@@ -6,7 +6,7 @@
     <title>{{ $pageTitle ?? 'Sistema' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-neutral-100 text-neutral-900">
+<body class="min-h-screen bg-[#ece8df] text-neutral-900">
     @include('partials.navbar')
 
     <main class="mx-auto max-w-5xl p-6">
