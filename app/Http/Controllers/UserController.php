@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index(Request $request): View
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('viewAny', User::class);
 
         $search = $request->input('search');
 
@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function create(Request $request): View
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('create', User::class);
 
         $user = new User();
         $permissions = Permission::orderBy('name')->get();
@@ -43,10 +43,10 @@ class UserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('create', User::class);
 
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6'],
             'role' => ['required', Rule::in(['admin', 'colaborador'])],
@@ -61,7 +61,9 @@ class UserController extends Controller
             'role' => $data['role'],
         ]);
 
-        $user->permissions()->sync($data['permissions'] ?? []);
+        $user->permissions()->sync(
+            $data['role'] === 'admin' ? [] : ($data['permissions'] ?? [])
+        );
 
         return redirect()
             ->route('users.index')
@@ -70,7 +72,7 @@ class UserController extends Controller
 
     public function edit(Request $request, User $user): View
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('update', $user);
 
         $permissions = Permission::orderBy('name')->get();
         $user->load('permissions');
@@ -80,10 +82,10 @@ class UserController extends Controller
 
     public function update(Request $request, User $user): RedirectResponse
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('update', $user);
 
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'email' => [
                 'required',
                 'email',
@@ -107,7 +109,9 @@ class UserController extends Controller
         }
 
         $user->update($payload);
-        $user->permissions()->sync($data['permissions'] ?? []);
+        $user->permissions()->sync(
+            $data['role'] === 'admin' ? [] : ($data['permissions'] ?? [])
+        );
 
         return redirect()
             ->route('users.index')
@@ -116,13 +120,7 @@ class UserController extends Controller
 
     public function destroy(Request $request, User $user): RedirectResponse
     {
-        abort_unless($request->user()?->isAdmin(), 403);
-
-        if ($request->user()->is($user)) {
-            return redirect()
-                ->route('users.index')
-                ->with('success', 'Voce nao pode excluir o usuario logado.');
-        }
+        $this->authorize('delete', $user);
 
         $user->permissions()->detach();
         $user->delete();

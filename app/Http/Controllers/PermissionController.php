@@ -12,7 +12,7 @@ class PermissionController extends Controller
 {
     public function index(Request $request): View
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('viewAny', Permission::class);
 
         $search = $request->input('search');
 
@@ -32,7 +32,7 @@ class PermissionController extends Controller
 
     public function create(Request $request): View
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('create', Permission::class);
 
         $permission = new Permission();
 
@@ -41,12 +41,12 @@ class PermissionController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('create', Permission::class);
 
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'slug' => ['required', 'string', 'max:255', 'alpha_dash', 'unique:permissions,slug'],
-            'description' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:150'],
         ]);
 
         Permission::create($data);
@@ -58,17 +58,17 @@ class PermissionController extends Controller
 
     public function edit(Request $request, Permission $permission): View
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('update', $permission);
 
         return view('permissions.edit', compact('permission'));
     }
 
     public function update(Request $request, Permission $permission): RedirectResponse
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('update', $permission);
 
         $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
             'slug' => [
                 'required',
                 'string',
@@ -76,7 +76,7 @@ class PermissionController extends Controller
                 'alpha_dash',
                 Rule::unique('permissions', 'slug')->ignore($permission->id),
             ],
-            'description' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:150'],
         ]);
 
         $permission->update($data);
@@ -88,7 +88,7 @@ class PermissionController extends Controller
 
     public function destroy(Request $request, Permission $permission): RedirectResponse
     {
-        abort_unless($request->user()?->isAdmin(), 403);
+        $this->authorize('delete', $permission);
 
         $permission->users()->detach();
         $permission->delete();
