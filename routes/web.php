@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Models\Permission;
 use Illuminate\Http\Request;
@@ -48,14 +49,10 @@ Route::middleware('auth')->group(function () {
         ->except(['show'])
         ->names('users');
 
-    Route::get('/permissoes', function () {
-        abort_unless(Auth::user()->isAdmin(), 403);
-
-        return view('permissoes', [
-            'pageTitle' => 'Permissões',
-            'pageDescription' => 'Area base para o CRUD de permissoes.',
-        ]);
-    })->name('permissions.index');
+    Route::resource('permissoes', PermissionController::class)
+        ->parameters(['permissoes' => 'permission'])
+        ->except(['show'])
+        ->names('permissions');
 
     Route::get('/modulos/{permission:slug}', function (Permission $permission) {
         $user = Auth::user();
