@@ -1,4 +1,4 @@
-# Avaliacao Laravel - Santa Casa
+# Avaliação Laravel - Santa Casa
 
 Aplicação desenvolvida para o desafio técnico de Desenvolvedor de Sistemas Júnior em Laravel.
 
@@ -195,27 +195,27 @@ A aplicação utiliza relacionamento many-to-many entre usuários e permissões,
   - modules
   - errors
 
-## Checklist do desafio
+## Implementações
 
-### Obrigatorios
+- Autenticação com e-mail e senha
+- CRUD completo de usuários
+- CRUD completo de permissões
+- Controle de acesso por rota
+- Página simples para os módulos
+- Migrations
+- Seeders
+- Usuário administrador inicial
+- README com instalação, configuração, execução e credenciais
 
-- [x] Autenticação com e-mail e senha
-- [x] CRUD completo de usuários
-- [x] CRUD completo de permissões
-- [x] Controle de acesso por rota
-- [x] Página simples para os módulos
-- [x] Migrations
-- [x] Seeders
-- [x] Usuário administrador inicial
-- [x] README com instalação, configuração, execução e credenciais
-
-### Diferenciais implementados
-
-- [x] Policies
-- [x] Tratamento de exceções com paginas 403 e 404
-- [x] Validações robustas
-- [x] Busca e paginação nas listagens
-- [x] Interface responsiva simples com Tailwind
+- Policies
+- Tratamento de exceções com paginas 403 e 404
+- Validações robustas
+- Busca e paginação nas listagens
+- interface responsiva simples com Tailwind
+- Testes unitários e de feature
+- Pipeline de validação automática com GitHub Actions
+- Validação de estilo com Laravel Pint
+- Pipeline de CI com GitHub Actions para validação de algumas condições
 
 
 ## Como validar rapidamente
@@ -226,7 +226,7 @@ A aplicação utiliza relacionamento many-to-many entre usuários e permissões,
 php artisan migrate:fresh --seed
 ```
 
-2. Inicie a aplicacao:
+2. Inicie a aplicação:
 
 ```bash
 php artisan serve
@@ -237,10 +237,10 @@ npm run dev
 
 - acesso a `Usuarios`;
 - acesso a `Permissoes`;
-- bloqueio ao tentar abrir modulo operacional.
+- bloqueio ao tentar abrir módulo operacional.
 
 4. Entre com o colaborador e valide:
 
-- visualizacao apenas dos modulos permitidos;
+- visualização apenas dos módulos permitidos;
 - bloqueio `403` ao tentar acessar telas administrativas;
-- bloqueio ao tentar acessar modulo sem permissao.
+- bloqueio ao tentar acessar módulo sem permissão.

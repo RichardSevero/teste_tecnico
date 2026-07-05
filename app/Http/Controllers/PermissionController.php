@@ -34,7 +34,7 @@ class PermissionController extends Controller
     {
         $this->authorize('create', Permission::class);
 
-        $permission = new Permission();
+        $permission = new Permission;
 
         return view('permissions.create', compact('permission'));
     }

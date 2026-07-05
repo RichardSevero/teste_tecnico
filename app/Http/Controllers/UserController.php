@@ -35,7 +35,7 @@ class UserController extends Controller
     {
         $this->authorize('create', User::class);
 
-        $user = new User();
+        $user = new User;
         $permissions = Permission::orderBy('name')->get();
 
         return view('users.create', compact('user', 'permissions'));

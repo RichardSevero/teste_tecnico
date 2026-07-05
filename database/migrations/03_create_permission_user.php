@@ -10,11 +10,11 @@ return new class extends Migration
     {
         Schema::create('permission_user', function (Blueprint $table) {
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
             $table->foreignId('permission_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
             $table->timestamps();
             $table->primary(['user_id', 'permission_id']);
         });
