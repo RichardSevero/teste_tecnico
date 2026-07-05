@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use App\Models\Permission;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,19 +30,8 @@ Route::post('/login', function (Request $request) {
 })->name('login.submit');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        $user = Auth::user();
-
-        return view('home', [
-            'pageTitle' => 'home',
-            'collaboratorsCount' => $user->isAdmin()
-                ? User::where('role', 'colaborador')->count()
-                : null,
-            'permissionsCount' => $user->isAdmin()
-                ? Permission::count()
-                : null,
-        ]);
-    })->name('home');
+    Route::get('/home', [HomeController::class, 'index'])
+        ->name('home');
 
     Route::post('/logout', function (Request $request) {
         Auth::logout();
@@ -66,8 +55,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/modulos/{permission:slug}', function (Permission $permission) {
         $user = Auth::user();
 
+        abort_if($user->isAdmin(), 403);
+
         abort_unless(
-            $user->isAdmin() || $user->hasPermission($permission->slug),
+            $user->hasPermission($permission->slug),
             403
         );
 
