@@ -24,9 +24,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * Relacionamento muitos-para-muitos com permissões.
-     */
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class);
@@ -43,5 +40,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function hasPermission(string $slug): bool
+    {
+        return $this->permissions->contains('slug', $slug);
     }
 }

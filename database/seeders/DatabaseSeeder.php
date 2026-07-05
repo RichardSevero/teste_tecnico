@@ -20,32 +20,44 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        User::factory()->count(5)->create([
-            'role' => 'colaborador',
-        ]);
-
-        Permission::create([
+        $setores = Permission::create([
             'name' => 'Setores Hospitalares',
             'slug' => 'setores-hospitalares',
             'description' => 'Acesso ao modulo de setores hospitalares',
         ]);
 
-        Permission::create([
+        $especialidades = Permission::create([
             'name' => 'Especialidades Medicas',
             'slug' => 'especialidades-medicas',
             'description' => 'Acesso ao modulo de especialidades medicas',
         ]);
 
-        Permission::create([
+        $equipamentos = Permission::create([
             'name' => 'Equipamentos',
             'slug' => 'equipamentos',
             'description' => 'Acesso ao modulo de equipamentos',
         ]);
 
-        Permission::create([
+        $unidades = Permission::create([
             'name' => 'Unidades Assistenciais',
             'slug' => 'unidades-assistenciais',
             'description' => 'Acesso ao modulo de unidades assistenciais',
+        ]);
+
+        $colaborador = User::factory()->create([
+            'name' => 'Colaborador Teste',
+            'email' => 'colaborador@santacasa.org.br',
+            'password' => bcrypt('password'),
+            'role' => 'colaborador',
+        ]);
+
+        $colaborador->permissions()->attach([
+            $unidades->id,
+            $equipamentos->id,
+        ]);
+
+        User::factory()->count(13)->create([
+            'role' => 'colaborador',
         ]);
     }
 }
