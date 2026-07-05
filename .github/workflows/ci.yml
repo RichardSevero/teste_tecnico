@@ -55,6 +55,7 @@ jobs:
       - name: Preparar ambiente de teste
         run: |
           cp .env.testing.example .env.testing
+          echo DB_PASSWORD=password >> .env.testing
           php artisan key:generate --env=testing
 
       - name: Rodar testes
