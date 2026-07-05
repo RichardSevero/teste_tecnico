@@ -21,7 +21,9 @@
         </div>
 
         <details class="relative justify-self-end">
-            <summary class="cursor-pointer list-none transition hover:text-blue-600">{{ $user->name }}</summary>
+            <summary class="cursor-pointer list-none rounded-md border border-neutral-300 px-4 py-2 transition hover:border-blue-600 hover:text-blue-600">
+                {{ $user->name }}
+            </summary>
 
             <div class="absolute right-0 mt-3 rounded-lg border border-neutral-200 bg-white p-3 shadow-md">
                 <form method="POST" action="{{ route('logout') }}">

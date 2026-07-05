@@ -2,5 +2,14 @@
 
 @section('content')
         <p class="text-3xl font-semibold text-neutral-900">Bem-vindo ao sistema, {{ auth()->user()->name }}!</p>
-        <p class="mt-2 text-neutral-700">Seu resumo de usuários:</p>
+
+        @if (auth()->user()->isAdmin())
+            <p class="mt-2 text-neutral-700">
+                Seu resumo de colaboradores: {{ $collaboratorsCount }}
+            </p>
+
+            <p class="mt-2 text-neutral-700">
+                Seu resumo de permissões: {{ $permissionsCount }}
+            </p>
+        @endif
 @endsection

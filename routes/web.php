@@ -3,6 +3,7 @@
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,8 +31,16 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
+        $user = Auth::user();
+
         return view('home', [
             'pageTitle' => 'home',
+            'collaboratorsCount' => $user->isAdmin()
+                ? User::where('role', 'colaborador')->count()
+                : null,
+            'permissionsCount' => $user->isAdmin()
+                ? Permission::count()
+                : null,
         ]);
     })->name('home');
 
