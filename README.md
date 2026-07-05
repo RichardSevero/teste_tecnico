@@ -12,7 +12,7 @@ O sistema permite:
 
 ## Requisitos
 
-- PHP 8.3+
+- PHP 8.4+
 - Composer
 - Node.js 20+
 - NPM
@@ -21,7 +21,7 @@ O sistema permite:
 ## Tecnologias utilizadas
 
 - Laravel 13
-- PHP 8.3
+- PHP 8.4+
 - MySQL
 - Blade
 - Tailwind CSS
