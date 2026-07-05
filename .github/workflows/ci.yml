@@ -58,8 +58,8 @@ jobs:
           echo DB_PASSWORD=password >> .env.testing
           php artisan key:generate --env=testing
 
+      - name: Gerar build do front
+        run: npm run build
+
       - name: Rodar testes
         run: php artisan test
-
-      - name: Validar build do front
-        run: npm run build
