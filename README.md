@@ -1,58 +1,246 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Avaliacao Laravel - Santa Casa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicação desenvolvida para o desafio técnico de Desenvolvedor de Sistemas Júnior em Laravel.
 
-## About Laravel
+O sistema permite:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- autenticação com e-mail e senha;
+- CRUD de usuários;
+- CRUD de permissões;
+- controle de acesso por perfil e por permissão;
+- exibição de módulos operacionais de acordo com as permissões do colaborador.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.3+
+- Composer
+- Node.js 20+
+- NPM
+- MySQL 8+ ou MariaDB
 
-## Learning Laravel
+## Tecnologias utilizadas
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Laravel 13
+- PHP 8.3
+- MySQL
+- Blade
+- Tailwind CSS
+- Vite
+- PHPUnit
+- Docker Compose para banco local
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalacao
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+1. Clone o repositorio:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <url-do-repositorio>
+cd teste_tecnico
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+2. Instale as dependencias do PHP:
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Instale as dependencias do front-end:
 
-## Code of Conduct
+```bash
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Crie o arquivo de ambiente:
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+No Windows PowerShell:
 
-## License
+```powershell
+Copy-Item .env.example .env
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5. Gere a chave da aplicacao:
+
+```bash
+php artisan key:generate
+```
+
+## Configuracao
+
+Ajuste as variaveis de banco no arquivo `.env`.
+
+Exemplo:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=santa_casa
+DB_USERNAME=root
+DB_PASSWORD=password
+```
+
+Se desejar, o projeto possui um `docker-compose.yml` com MySQL e Adminer.
+
+Para subir os containers:
+
+```bash
+docker compose up -d
+```
+
+Servicos:
+
+- MySQL: `127.0.0.1:3306`
+- Adminer: `http://127.0.0.1:8081`
+
+## Migrations e seeders
+
+Para criar as tabelas e popular os dados iniciais:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+## Execucao
+
+Backend:
+
+```bash
+php artisan serve
+```
+
+Frontend:
+
+```bash
+npm run dev
+```
+
+A aplicacao ficara disponivel em:
+
+- `http://127.0.0.1:8000`
+
+## Credenciais iniciais
+
+Administrador:
+
+- E-mail: `admin@santacasa.org.br`
+- Senha: `password`
+
+Colaborador de teste:
+
+- E-mail: `colaborador@santacasa.org.br`
+- Senha: `password`
+
+Permissoes iniciais do colaborador de teste:
+
+- Unidades Assistenciais
+- Equipamentos
+
+## Regras implementadas
+
+- O usuario `admin` acessa apenas as areas administrativas:
+  - Usuários
+  - Permissões
+- O usuario `colaborador` acessa apenas os módulos vinculados as suas permissões.
+- O acesso não depende apenas do menu: rotas tambem sao protegidas.
+- O admin não utiliza os modulos operacionais.
+- Ao editar um usuario com perfil `admin`, as permissoes não são aplicadas. Se o perfil for alterado para `colaborador`, as permissões podem ser selecionadas.
+- Não é permitido excluir uma permissão que esteja vinculada a usuários.
+
+## Módulos disponíveis
+
+Os módulos operacionais implementados para validação do controle de acesso são:
+
+- Setores Hospitalares
+- Especialidades Medicas
+- Equipamentos
+- Unidades Assistenciais
+
+Cada módulo possui uma página simples com nome e descrição.
+
+## Diagrama do banco
+
+A aplicação utiliza relacionamento many-to-many entre usuários e permissões, por meio da tabela pivô `permission_user`.
+
+![Diagrama do banco](./public/images/Banco_UML.svg)
+
+## Decisões técnicas
+
+- Foi utilizada autenticação nativa do Laravel com `Auth::attempt`.
+- O sistema usa relacionamento many-to-many entre `users` e `permissions`.
+- A autorização administrativa foi centralizada com `Policies`.
+- O controle de acesso aos mpódulos foi mantido por permissão na rota.
+- A listagem de usuários utiliza busca simples, eager loading `with('permissions')` e paginação com 10 itens por página para otimização de query.
+- A listagem de permissões também possui busca e paginação.
+- As validações foram reforçadas com regras de formato, unicidade e limites de tamanho.
+- Foram adicionadas telas personalizadas para erros `403` e `404`.
+
+## Estrutura resumida
+
+- `app/Http/Controllers`
+  - `HomeController`
+  - `UserController`
+  - `PermissionController`
+- `app/Policies`
+  - `UserPolicy`
+  - `PermissionPolicy`
+- `resources/views`
+  - login
+  - home
+  - users
+  - permissions
+  - modules
+  - errors
+
+## Checklist do desafio
+
+### Obrigatorios
+
+- [x] Autenticação com e-mail e senha
+- [x] CRUD completo de usuários
+- [x] CRUD completo de permissões
+- [x] Controle de acesso por rota
+- [x] Página simples para os módulos
+- [x] Migrations
+- [x] Seeders
+- [x] Usuário administrador inicial
+- [x] README com instalação, configuração, execução e credenciais
+
+### Diferenciais implementados
+
+- [x] Policies
+- [x] Tratamento de exceções com paginas 403 e 404
+- [x] Validações robustas
+- [x] Busca e paginação nas listagens
+- [x] Interface responsiva simples com Tailwind
+
+
+## Como validar rapidamente
+
+1. Rode:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+2. Inicie a aplicacao:
+
+```bash
+php artisan serve
+npm run dev
+```
+
+3. Entre com o admin e valide:
+
+- acesso a `Usuarios`;
+- acesso a `Permissoes`;
+- bloqueio ao tentar abrir modulo operacional.
+
+4. Entre com o colaborador e valide:
+
+- visualizacao apenas dos modulos permitidos;
+- bloqueio `403` ao tentar acessar telas administrativas;
+- bloqueio ao tentar acessar modulo sem permissao.
