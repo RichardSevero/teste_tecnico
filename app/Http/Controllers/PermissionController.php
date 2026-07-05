@@ -53,7 +53,7 @@ class PermissionController extends Controller
 
         return redirect()
             ->route('permissions.index')
-            ->with('success', 'Permissao criada com sucesso.');
+            ->with('success', 'Permissão criada com sucesso.');
     }
 
     public function edit(Request $request, Permission $permission): View
@@ -83,18 +83,23 @@ class PermissionController extends Controller
 
         return redirect()
             ->route('permissions.index')
-            ->with('success', 'Permissao atualizada com sucesso.');
+            ->with('success', 'Permissão atualizada com sucesso.');
     }
 
     public function destroy(Request $request, Permission $permission): RedirectResponse
     {
         $this->authorize('delete', $permission);
 
-        $permission->users()->detach();
+        if ($permission->users()->exists()) {
+            return redirect()
+                ->route('permissions.index')
+                ->with('error', 'Não é possível excluir uma permissão vinculada a usuários.');
+        }
+
         $permission->delete();
 
         return redirect()
             ->route('permissions.index')
-            ->with('success', 'Permissao excluida com sucesso.');
+            ->with('success', 'Permissão excluída com sucesso.');
     }
 }
