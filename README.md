@@ -29,22 +29,22 @@ O sistema permite:
 - PHPUnit
 - Docker Compose para banco local
 
-## Instalacao
+## Instalação
 
-1. Clone o repositorio:
+1. Clone o repositório:
 
 ```bash
 git clone <url-do-repositorio>
 cd teste_tecnico
 ```
 
-2. Instale as dependencias do PHP:
+2. Instale as dependências do PHP:
 
 ```bash
 composer install
 ```
 
-3. Instale as dependencias do front-end:
+3. Instale as dependências do front-end:
 
 ```bash
 npm install
@@ -62,15 +62,15 @@ No Windows PowerShell:
 Copy-Item .env.example .env
 ```
 
-5. Gere a chave da aplicacao:
+5. Gere a chave da aplicação:
 
 ```bash
 php artisan key:generate
 ```
 
-## Configuracao
+## Configuração
 
-Ajuste as variaveis de banco no arquivo `.env`.
+Ajuste as variáveis de banco no arquivo `.env`.
 
 Exemplo:
 
@@ -104,7 +104,7 @@ Para criar as tabelas e popular os dados iniciais:
 php artisan migrate:fresh --seed
 ```
 
-## Execucao
+## Execução
 
 Backend:
 
@@ -118,7 +118,7 @@ Frontend:
 npm run dev
 ```
 
-A aplicacao ficara disponivel em:
+A aplicação ficará disponível em:
 
 - `http://127.0.0.1:8000`
 
@@ -134,7 +134,7 @@ Colaborador de teste:
 - E-mail: `colaborador@santacasa.org.br`
 - Senha: `password`
 
-Permissoes iniciais do colaborador de teste:
+Permissões iniciais do colaborador de teste:
 
 - Unidades Assistenciais
 - Equipamentos
@@ -144,10 +144,10 @@ Permissoes iniciais do colaborador de teste:
 - O usuario `admin` acessa apenas as areas administrativas:
   - Usuários
   - Permissões
-- O usuario `colaborador` acessa apenas os módulos vinculados as suas permissões.
-- O acesso não depende apenas do menu: rotas tambem sao protegidas.
-- O admin não utiliza os modulos operacionais.
-- Ao editar um usuario com perfil `admin`, as permissoes não são aplicadas. Se o perfil for alterado para `colaborador`, as permissões podem ser selecionadas.
+- O usuário `colaborador` acessa apenas os módulos vinculados as suas permissões.
+- O acesso não depende apenas do menu: rotas também são protegidas.
+- O admin não utiliza os módulos operacionais.
+- Ao editar um usuário com perfil `admin`, as permissões não são aplicadas. Se o perfil for alterado para `colaborador`, as permissões podem ser selecionadas.
 - Não é permitido excluir uma permissão que esteja vinculada a usuários.
 
 ## Módulos disponíveis
@@ -235,8 +235,8 @@ npm run dev
 
 3. Entre com o admin e valide:
 
-- acesso a `Usuarios`;
-- acesso a `Permissoes`;
+- acesso a `Usuários`;
+- acesso a `Permissões`;
 - bloqueio ao tentar abrir módulo operacional.
 
 4. Entre com o colaborador e valide:
