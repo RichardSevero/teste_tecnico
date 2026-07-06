@@ -14,7 +14,7 @@
     </div>
 
     <div>
-        <label for="slug" class="mb-2 block text-sm font-medium text-neutral-700">Slug</label>
+        <label for="slug" class="mb-2 block text-sm font-medium text-neutral-700">Identificador</label>
         <input
             id="slug"
             name="slug"
@@ -22,6 +22,7 @@
             value="{{ old('slug', $permission->slug) }}"
             class="w-full rounded-md border border-neutral-300 px-3 py-2 text-neutral-900 focus:border-blue-500 focus:outline-none"
         >
+        <p class="mt-1 text-sm text-neutral-500">Usado internamente nas rotas.</p>
         @error('slug')
             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
         @enderror

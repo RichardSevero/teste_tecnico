@@ -19,7 +19,7 @@
             type="text"
             name="search"
             value="{{ $search }}"
-            placeholder="Buscar por nome ou slug"
+            placeholder="Buscar por nome ou identificador"
             class="w-full rounded-md border border-neutral-300 px-3 py-2 text-neutral-900 placeholder:text-neutral-500/70 focus:border-blue-500 focus:outline-none"
         >
 
@@ -45,7 +45,7 @@
             <thead class="bg-neutral-50">
                 <tr class="text-left text-sm font-medium text-neutral-700">
                     <th class="px-4 py-3">Nome</th>
-                    <th class="px-4 py-3">Slug</th>
+                    <th class="px-4 py-3">Identificador</th>
                     <th class="px-4 py-3">Descrição</th>
                     <th class="px-4 py-3">Ações</th>
                 </tr>
@@ -68,7 +68,7 @@
                                     <button
                                         type="submit"
                                         class="text-red-600 transition hover:text-red-700"
-                                        onclick="return confirm('Deseja excluir esta permissão?')"
+                                        onclick="return confirm('Deseja excluir esta permissao?')"
                                     >
                                         Excluir
                                     </button>

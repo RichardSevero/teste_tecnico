@@ -39,7 +39,7 @@ return [
             'exists' => 'Selecione apenas permissões válidas.',
         ],
         'slug' => [
-            'alpha_dash' => 'O slug deve conter apenas letras, números, hifens e underscores.',
+            'alpha_dash' => 'O identificador deve conter apenas letras, números, hifens e underscores.',
         ],
     ],
 
